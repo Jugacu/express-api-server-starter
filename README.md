@@ -10,16 +10,17 @@ $ git clone --depth=1 https://github.com/Jugacu/express-api-server-starter.git <
 cd  <your-project-name>
 
 # Maybe remove the `.git` directory and start with a fresh one.
+$ rm -rf .git
 
 # install all dependencies.
 $ npm i
 
 # Start developing and serve your app:
-npm run dev
+$ npm run dev
 
 # Build your app and start it: 
-npm run prod
+$ npm run prod
 
 # Build your app: 
-npm run build
+$ npm run build
 ```
