@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "tsc": "tsc",
+    "build": "tsc",
     "dev": "ts-node-dev --respawn --transpileOnly ./src/main.ts",
     "prod": "tsc && node ./dist/main.js"
   },
