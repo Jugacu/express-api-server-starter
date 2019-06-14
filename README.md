@@ -17,7 +17,7 @@ $ npm i
 # Start developing and serve your app:
 npm run dev
 
-# Build your app without minification and start it: 
+# Build your app and start it: 
 npm run prod
 
 # Build your app: 
