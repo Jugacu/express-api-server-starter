@@ -7,9 +7,18 @@ export type FlowerDocument = mongoose.Document & {
 };
 
 const FlowerSchema = new mongoose.Schema({
-    name: String,
-    description: String,
-    pic: String,
+    name: {
+        type: String,
+        required: true,
+    },
+    description: {
+        type: String,
+        default: ''
+    },
+    pic: {
+        type: String,
+        default: ''
+    },
 }, { timestamps: true });
 
 export const Flower = mongoose.model<FlowerDocument>('Flower', FlowerSchema);

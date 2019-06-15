@@ -7,7 +7,8 @@ import {MONGODB_URI} from './util/secrets';
 
 // Controllers (route handlers)
 import * as homeController from './controllers/home';
-import * as flowerController from './controllers/flower';
+import * as gardenController from './controllers/garden';
+
 // Create Express server
 const app = express();
 
@@ -28,9 +29,9 @@ app.use(expressValidator());
  * Primary app routes.
  */
 app.get('/', homeController.index);
-app.get('/flowers/all', flowerController.getAll);
-app.post('/flowers/add', flowerController.add);
-app.get('/flowers/:name', flowerController.get);
+app.get('/gardens/all', gardenController.getAll);
+app.post('/gardens/add', gardenController.add);
+app.get('/gardens/:name', gardenController.get);
 
 
 export default app;
