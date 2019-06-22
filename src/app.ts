@@ -3,6 +3,7 @@ import expressValidator from 'express-validator';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import mongoose from 'mongoose';
+import cors from 'cors';
 import {MONGODB_URI} from './util/secrets';
 
 // Controllers (route handlers)
@@ -19,6 +20,8 @@ mongoose.connect(MONGODB_URI + '', {useNewUrlParser: true})
 
 // Express configuration
 app.set('port', process.env.PORT || 3000);
+app.use(cors());
+app.options('*', cors());
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -32,6 +35,7 @@ app.get('/', homeController.index);
 app.get('/gardens/all', gardenController.getAll);
 app.post('/gardens/add', gardenController.add);
 app.get('/gardens/:name', gardenController.get);
+app.get('/gardens/byId/:id', gardenController.getById);
 
 
 export default app;

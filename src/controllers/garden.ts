@@ -8,11 +8,14 @@ import {Flower, FlowerDocument} from '../models/Flower';
  */
 export const getAll = (req: Request, res: Response) => {
     Garden.find()
-        // This is like an outer-join
+    // This is like an outer-join
         .populate('flowers', 'name pic description')
         .exec()
         .then((gardens: GardenDocument[]) => {
-            res.status(200).json(gardens);
+            res.status(200).json({
+                status: 'success',
+                response: gardens
+            });
         })
         .catch((err) => {
             res.status(500).json({
@@ -52,10 +55,39 @@ export const get = (req: Request, res: Response, next: NextFunction) => {
 };
 
 /**
- * GET /gardens/add
+ * GET /gardens/byId/:id
+ * Gets a garden with a given id
+ */
+export const getById = (req: Request, res: Response) => {
+    Garden
+        .findById(req.params.id)
+        .populate('flowers')
+        .exec()
+        .then((garden) => {
+            if (!garden)
+                return res.status(404).json({
+                    status: 'error',
+                    response: 'Garden not found.'
+                });
+
+            res.status(200).json({
+                status: 'success',
+                response: garden
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                status: 'error',
+                response: err
+            });
+        });
+};
+
+/**
+ * POST /gardens/add
  * Creates a new garden
  */
-export const add = (req: Request, res: Response, next: NextFunction) => {
+export const add = (req: Request, res: Response) => {
     req.assert('name', 'Garden name cannot be blank').notEmpty();
     req.assert('flowers', 'Garden must have a flower array, it can be empty').isArray();
 
@@ -124,9 +156,13 @@ export const add = (req: Request, res: Response, next: NextFunction) => {
             return garden.save();
         })
         .then(garden => {
+            // All flowers are saved, our garden its too lets populate it!
+            return garden.populate('flowers').execPopulate();
+        })
+        .then(garden => {
             res.status(201).json({
                 status: 'success',
-                created: garden
+                response: garden
             });
         })
         .catch(err => {
