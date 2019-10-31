@@ -22,7 +22,7 @@
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "express-validator": "^5.3.1",
-    "mongoose": "^5.5.15",
+    "mongoose": "^5.7.5",
     "tslint": "^5.17.0",
     "typescript": "^3.5.2",
     "winston": "^3.2.1"
